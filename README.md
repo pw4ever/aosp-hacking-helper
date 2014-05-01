@@ -2,11 +2,13 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Linux kernel building/testing helper scripts](#linux-kernel-buildingtesting-helper-scripts)
+- [Android Open Source Project (AOSP) building/testing helper scripts](#android-open-source-project-aosp-buildingtesting-helper-scripts)
 	- [Cheatsheet](#cheatsheet)
 		- [One-time setup](#one-time-setup)
-		- [Build, install, and test the kernel](#build-install-and-test-the-kernel)
-		- [Build, install, and test a kernel module](#build-install-and-test-a-kernel-module)
+		- [AOSP building routine](#aosp-building-routine)
+		- [Build goldfish kernel](#build-goldfish-kernel)
+		- [Build, install, and test a loadble kernel module](#build-install-and-test-a-loadble-kernel-module)
+		- [Bonus](#bonus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
