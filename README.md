@@ -38,7 +38,7 @@ Every time, before you start [building AOSP](https://source.android.com/source/b
 # suppose we are at top-level AOSP directory now
 bash
 source 00routine.sh
-lunch aosp_arm-eng # or other lunch combo (tip: use `print_lunch_combo` to see the menu; ${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}) of your choice
+lunch aosp_arm-eng # or other lunch combo (tip: use `print_lunch_menu` to see the menu; ${TARGET_PRODUCT}-${TARGET_BUILD_VARIANT}) of your choice
 ```
 
 For your convenience, `source 00routine.sh` will print out this instruction (and the instructions for building goldfish kernel and LKMs).
