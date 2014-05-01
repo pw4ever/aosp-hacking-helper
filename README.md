@@ -8,7 +8,7 @@
 		- [AOSP building routine](#aosp-building-routine)
 		- [Build goldfish kernel](#build-goldfish-kernel)
 		- [Build, install, and test a loadble kernel module](#build-install-and-test-a-loadble-kernel-module)
-		- [Bonus](#bonus)
+	- [Bonus](#bonus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -94,7 +94,7 @@ adb shell insmod /data/hello.ko
 adb shell rmmod hello
 ```
 
-### Bonus
+## Bonus
 
 This is what the build environment (with a running emulator) looks like.
 
