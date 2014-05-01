@@ -1,0 +1,84 @@
+#! /bin/bash
+
+# common part of building goldfish kernel/modules
+
+# pre-requisite:
+# * variable "usage" is defined with the usage text
+# * function "my_goldfish_build_procedure" is exported; it has access to these variables: "target_inst" "make_jobs" "config_name" "config_to_merge"
+
+
+target_inst=$1
+shift
+if [[ -z ${target_inst} ]]; then
+    usage 
+fi 
+
+# kernel target arch
+arch=$1
+shift
+arch=${arch:-arm}
+
+# make jobs
+make_jobs=$1
+shift
+make_jobs=${make_jobs:-8}
+
+# config to merge
+config_to_merge="$@"
+
+# run in a subshell so do not impact the value of current shell
+(
+TOPDIR=$(dirname $0)
+
+case $arch in 
+    arm)
+        export ARCH=arm
+        export SUBARCH=${ARCH}
+        ;;
+    x86_64)
+        export ARCH=x86
+        export SUBARCH=x86_64
+        ;;
+    i686)
+        export ARCH=x86
+        export SUBARCH=x86
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+# adapt from ${TOPDIR}/external/qemu/distrib/build-kernel.sh
+export CROSS_COMPILE=$TOPDIR/external/qemu/distrib/kernel-toolchain/android-kernel-toolchain-
+
+# http://stackoverflow.com/a/20893543/1527494
+# prevent "unknown CPU architecture" error
+case $arch in
+    arm)
+        export REAL_CROSS_COMPILE=${TOPDIR}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.7/bin/arm-linux-androideabi-
+        ;;
+    x86_64)
+        export REAL_CROSS_COMPILE=${TOPDIR}/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.7/bin/x86_64-linux-android-
+        ;;
+    i686)
+        export REAL_CROSS_COMPILE=${TOPDIR}/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7/bin/i686-linux-android-
+        ;;
+esac
+
+config_name=
+case $arch in 
+    arm)
+        # http://stackoverflow.com/a/21274955/1527494
+        config_name=goldfish_armv7_defconfig
+        ;;
+    x86_64|i686)
+        config_name=goldfish_defconfig
+        ;;
+esac
+
+my_goldfish_build_procedure
+
+)
+
+# prevent leak afterwards
+unset my_goldfish_build_procedure

@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# print the directory that have the scripts (beyond symlinks)
+# usage: mydir=$(find_my_dir_beyond_symlink)
+#http://stackoverflow.com/a/246128/1527494
+
+
+
+function error
+{
+    echo $1 
+    exit 1
+}
+
+function usage
+{
+    error "$0 $usage"
+}
