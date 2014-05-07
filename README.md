@@ -70,10 +70,17 @@ $(gettop)/01build-goldfish-kernel.sh 2 x86_64 8 ${HOME}/hacking/linux-kernel/hel
 $(gettop)/01build-goldfish-kernel.sh 3 i686 8 ${HOME}/hacking/linux-kernel/helper/config/kgdb ${HOME}/hacking/linux-kernel/helper/config/lkm
 ```
 
-After building the kernel, the kernel image that can be loaded with `emulator -kernel <kernel image>` will be found at (take ARM for example, say the "linux kernel hacking helper" instance number is 1 in `01build-goldfish-kernel.sh`): 
+After building the kernel, the kernel image that can be loaded with `emulator -kernel <kernel image>` will be found at (take ARM for example, say the "linux kernel hacking helper" instance number is 1 in `01build-goldfish-kernel.sh`) `${ARENA}/build/1/arch/arm/boot/zImage`.
 
+If you want to test the kernel with a virtual sdcard image, create the sdcard image first:
 ```bash
-${ARENA}/build/1/arch/arm/boot/zImage
+# create a 200M virtual sdcard image with label "label-test01" as the file "$(gettop)/99stuff/sdcard/test01.img" (the directory has been created by "source 00routine.sh"
+mksdcar -l label-test01 200M $(gettop)/99stuff/sdcard/test01.img
+```
+
+Then, we can test the kernel:
+```bash
+emulator -kernel ${ARENA}/build/1/arch/arm/boot/zImage -sdcard $(gettop)/99stuff/sdcard/test01.img &
 ```
 
 ### Build, install, and test a loadble kernel module
