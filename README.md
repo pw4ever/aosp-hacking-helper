@@ -70,6 +70,12 @@ $(gettop)/01build-goldfish-kernel.sh 2 x86_64 8 ${HOME}/hacking/linux-kernel/hel
 $(gettop)/01build-goldfish-kernel.sh 3 i686 8 ${HOME}/hacking/linux-kernel/helper/config/kgdb ${HOME}/hacking/linux-kernel/helper/config/lkm
 ```
 
+After building the kernel, the kernel image that can be loaded with `emulator -kernel <kernel image>` will be found at (take ARM for example, say the "linux kernel hacking helper" instance number is 1 in `01build-goldfish-kernel.sh`): 
+
+```bash
+${ARENA}/build/1/arch/arm/boot/zImage
+```
+
 ### Build, install, and test a loadble kernel module
 
 To build a LKM, `cd` into the directory (perhaps create a directory for your module under `$(gettop)/99kernel/modules/`, e.g., `$(gettop)/99kernel/modules/hello/`), which has your LKM source. The Makefile/Kbuild should have the usual `obj-m += ` variable definitions; read the good old [LDD3](http://www.makelinux.net/ldd3/) or [kernel documentation](https://github.com/torvalds/linux/blob/master/Documentation/kbuild/modules.txt) on this.
