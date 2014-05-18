@@ -3,7 +3,7 @@
 pwd=$(pwd)
 
 # AOSP specific setting
-#export JAVA_HOME=/opt/java7
+export JAVA_HOME=/opt/java6
 export USE_CCACHE=1
 mkdir -p ${pwd}/.ccache
 export CCACHE_DIR=${pwd}/.ccache
