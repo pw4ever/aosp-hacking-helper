@@ -12,8 +12,7 @@ element_count=${#api_dirs[@]}
 index=0
 
 while [[ "$index" -lt "$element_count" ]]; do
-    touch_file="build-javadoc-${api_dir[$index]}.touch"
-    rm -rf ${touch_file}
-    ( javadoc -d ${OUTDIR} -public -sourcepath ${api_dirs[$index]} -subpackages ${api_subpackages[$index]}; touch ${touch_file} ) &
+    touch_file="build-javadoc-${api_dirs[$index]//\//_}.touch"
+    ( rm -f ${touch_file}; javadoc -d ${OUTDIR} -public -sourcepath ${api_dirs[$index]} -subpackages ${api_subpackages[$index]}; touch ${touch_file} ) &
     ((index++))
 done
