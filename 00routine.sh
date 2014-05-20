@@ -16,8 +16,8 @@ top=$(gettop)
 
 
 # create directories
-mkdir -p ${top}/99stuff/{kernel,sdcard}
-mkdir -p ${top}/99kernel/modules
+mkdir -p ${top}/99stuff/{kernel,sdcard}/
+mkdir -p ${top}/99kernel/modules/
 
 # building goldfish (emulator) kernel
 # env setup for https://github.com/pw4ever/linux-kernel-hacking-helper
