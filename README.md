@@ -8,6 +8,7 @@
 		- [AOSP building routine](#aosp-building-routine)
 		- [Build goldfish kernel](#build-goldfish-kernel)
 		- [Build, install, and test a loadble kernel module](#build-install-and-test-a-loadble-kernel-module)
+		- [Build Android framework API JavaDoc documentation](#build-android-framework-api-javadoc-documentation)
 	- [Bonus](#bonus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -106,6 +107,15 @@ adb shell insmod /data/hello.ko
 # unload the module
 adb shell rmmod hello
 ```
+
+### Build Android framework API JavaDoc documentation
+
+```bash
+cd $(gettop)
+./02build-doc-javadoc.sh 2> /dev/null
+```
+
+Afterwards, the doc will be rooted under `$(gettop)/90doc/javadoc/`.
 
 ## Bonus
 
