@@ -7,7 +7,9 @@ api_dirs=( frameworks/base/core/java/ frameworks/base/services/java/ libcore/lib
 api_subpackages=android:com:dalvik:java:javax:org:sun
 
 # clear legacy
-rm -rf ${TMPDIR}
+[[ -d ${OUTDIR} ]] && rm -rf ${OUTDIR}
+[[ -d ${TMPDIR} ]] && rm -rf ${TMPDIR}
+mkdir -p ${OUTDIR}
 mkdir -p ${TMPDIR}
 
 for dir in "${api_dirs[@]}"; do
