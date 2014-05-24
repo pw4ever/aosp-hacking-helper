@@ -1,18 +1,17 @@
 #!/bin/bash - 
 
 OUTDIR=${OUTDIR:-90doc/javadoc/}
+TMPDIR=${TMPDIR:-/tmp/aosp-javadoc/}
 
-declare -a api_dirs api_subpackages
+api_dirs=( frameworks/base/core/java/ frameworks/base/services/java/ libcore/libdvm/src/main/java/ libcore/dalvik/src/main/java/ libcore/luni/src/main/java )
+api_subpackages=android:com:dalvik:java:javax:org:sun
 
-# "api_dirs" and "api_subpackages" elements must match by position
-api_dirs=( frameworks/base/core/java/ frameworks/base/services/java/ )
-api_subpackages=( android:com com )
+mkdir -p ${TMPDIR}
+echo ${TMPDIR} created
 
-element_count=${#api_dirs[@]}
-index=0
-
-while [[ "$index" -lt "$element_count" ]]; do
-    touch_file="build-javadoc-${api_dirs[$index]//\//_}.touch"
-    ( rm -f ${touch_file}; javadoc -d ${OUTDIR} -protected -sourcepath ${api_dirs[$index]} -subpackages ${api_subpackages[$index]}; touch ${touch_file} ) &
-    ((index++))
+for dir in "${api_dirs[@]}"; do
+    cp -r ${dir}/* ${TMPDIR}
+    echo ${dir} copied
 done
+
+javadoc -d ${OUTDIR} -protected -sourcepath ${TMPDIR} -subpackages ${api_subpackages}
