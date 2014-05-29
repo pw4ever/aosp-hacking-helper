@@ -3,18 +3,20 @@
 OUTDIR=${OUTDIR:-90doc/javadoc/}
 TMPDIR=${TMPDIR:-/tmp/aosp-javadoc/}
 
-api_dirs=( frameworks/base/core/java/ frameworks/base/services/java/ libcore/libdvm/src/main/java/ libcore/dalvik/src/main/java/ libcore/luni/src/main/java )
-api_subpackages=android:com:dalvik:java:javax:org:sun
+declare -a base_dirs
+base_dirs=( frameworks/base libcore )
 
-# clear legacy
 [[ -d ${OUTDIR} ]] && rm -rf ${OUTDIR}
-[[ -d ${TMPDIR} ]] && rm -rf ${TMPDIR}
 mkdir -p ${OUTDIR}
+[[ -d ${TMPDIR} ]] && rm -rf ${TMPDIR}
 mkdir -p ${TMPDIR}
 
-for dir in "${api_dirs[@]}"; do
-    cp -r ${dir}/* ${TMPDIR}
-    echo ${dir} copied
+for dir in "${base_dirs[@]}"; do
+    for d in $(find ${dir} -type d -name java -a ! -regex '.*test.*' -a ! -regex '.*java/java.*'); do
+        cp -r ${d}/* ${TMPDIR}
+    done
 done
+
+api_subpackages=$(find ${TMPDIR} -maxdepth 1 -mindepth 1 -type d | perl -wnl -e 'our @a; push @a, $1 if $_=~qr|/([^/]+)$|; END { our @a; print join ":", @a; } ')
 
 javadoc -d ${OUTDIR} -protected -sourcepath ${TMPDIR} -subpackages ${api_subpackages}
