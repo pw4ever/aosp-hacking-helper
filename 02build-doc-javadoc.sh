@@ -20,3 +20,8 @@ done
 api_subpackages=$(find ${TMPDIR} -maxdepth 1 -mindepth 1 -type d | perl -wnl -e 'our @a; push @a, $1 if $_=~qr|/([^/]+)$|; END { our @a; print join ":", @a; } ')
 
 javadoc -d ${OUTDIR} -protected -sourcepath ${TMPDIR} -subpackages ${api_subpackages}
+
+echo
+echo '----------------------------------------'
+echo \${BROWSER} ${OUTDIR%/}/index.html
+echo '----------------------------------------'
