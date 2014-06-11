@@ -4,7 +4,7 @@ OUTDIR=${OUTDIR:-90doc/javadoc/}
 TMPDIR=${TMPDIR:-/tmp/aosp-javadoc/}
 
 declare -a base_dirs
-base_dirs=( frameworks/base libcore out/target/common/obj/JAVA_LIBRARIES/framework-base_intermediates/src )
+base_dirs=( frameworks/base libcore out/target/common/obj/JAVA_LIBRARIES/framework_intermediates/src )
 
 [[ -d ${OUTDIR} ]] && rm -rf ${OUTDIR}
 mkdir -p ${OUTDIR}
